@@ -1,0 +1,59 @@
+Remove every k'th node
+
+Constraints:
+1 <= T <= 50
+1 <= N <= 100
+1 <= element of linked list <= 1000
+0 <= k <= 100
+Example:
+Input:
+2
+8
+1 2 3 4 5 6 7 8
+3
+4
+1 2 3 4
+2
+Output:
+1 2 4 5 7 8
+1 3
+Explanation:
+Testcase 1: After removing every 3rd element from the linked list, we have updated list as 1, 2, 4, 5, 7 and 8, and the elements which are removed are 3 and 6.
+
+
+Node* deleteK(Node *head,int K)
+{
+    
+    if(K==1)
+    {
+        head=NULL;
+        return head;
+    }
+    
+    if(K==0)
+    return head;
+    
+   Node* prev=head;
+   Node* curr=head->next;
+   int n=1,k=K;
+   while(curr!=NULL)
+   {
+       n++;
+       
+       if(n%k==0)
+       {
+           if(curr!=NULL)
+           prev->next=curr->next;
+           else
+           prev->next=NULL;
+          
+       }
+       
+       prev=curr;
+       curr=curr->next;
+       
+       
+   }
+   
+   return head;
+}
