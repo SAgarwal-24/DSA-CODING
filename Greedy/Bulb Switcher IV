@@ -1,0 +1,83 @@
+1529. Bulb Switcher IV
+•	Difficulty:Medium
+There is a room with n bulbs, numbered from 0 to n-1, arranged in a row from left to right. Initially all the bulbs are turned off.
+Your task is to obtain the configuration represented by target where target[i] is '1' if the i-th bulb is turned on and is '0' if it is turned off.
+You have a switch to flip the state of the bulb, a flip operation is defined as follows:
+•	Choose any bulb (index i) of your current configuration.
+•	Flip each bulb from index i to n-1.
+When any bulb is flipped it means that if it is 0 it changes to 1 and if it is 1 it changes to 0.
+Return the minimum number of flips required to form target.
+ 
+Example 1:
+Input: target = "10111"
+Output: 3
+Explanation: Initial configuration "00000".
+flip from the third bulb:  "00000" -> "00111"
+flip from the first bulb:  "00111" -> "11000"
+flip from the second bulb:  "11000" -> "10111"
+We need at least 3 flip operations to form target.
+Example 2:
+Input: target = "101"
+Output: 3
+Explanation: "000" -> "111" -> "100" -> "101".
+Example 3:
+Input: target = "00000"
+Output: 0
+Example 4:
+Input: target = "001011101"
+Output: 5
+ 
+Constraints:
+•	1 <= target.length <= 10^5
+•	target[i] == '0' or target[i] == '1'
+•	class Solution {
+•	public:
+•	    int minFlips(string target) {
+•	        
+•	        // Greedy approach
+•	        // left to right
+•	        // bcz if a particular ith bulb doesn't match with the target 
+•	        // it is 100% sure to change its state, so it 100% must to flip it, no other alternative
+•	        // so it is 100% sure that we have to flip all bulbs from i to n-1
+•	        
+•	        // So now their are only two points to think upon 
+•	        // Initially all are off ie (say) "00000" and we want "10111" if in
+•	        // above eg. if we want "00000" then we don't need to anything(no flips) 
+•	        // above eg. if we want "10000" then we  need to something (some flips)
+•	        
+•	        // First point
+•	        // So to have a measure of need to do something (some flips) and nothing(no flips) will be done by
+•	        // variable state
+•	        
+•	        // Second point 
+•	        // if current bulb is not match with  state(expected state of bulb) ie we are bound to do a flip
+•	        
+•	        int state=0;//initially all zero
+•	        int cnt=0;
+•	        
+•	        for(auto b:target)
+•	        {
+•	            int curr=b-'0';
+•	            
+•	            if(curr!=state)
+•	            {
+•	                cnt++;
+•	                state=curr; // now this the expected state of all bulbs of i to n-1
+•	            }
+•	        }
+•	        
+•	        return cnt;
+•	    }
+•	};
+•	target="10111"
+•	s="00000" state=0 (initially)
+•	(i=0 and target[i]!=state[i]) // Need a flip
+s="11111" state=1
+•	(i=1 and target[i]!=state[i]) // Need a flip
+s="10000" state=0
+•	(i=2 and target[i]!=state[i]) // Need a flip
+s="10111" state=2
+•	(i=3 and target[i]==state[i]) //Not Need a flip
+•	(i=4 and target[i]==state[i]) //Not Need a flip
+
+
